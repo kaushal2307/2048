@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded',() =>{
             gridArray[i][index] = shiftedArray[i];
         }
     }
-
+///////////////////////SHIFTING AND MERGING/////////////////////////////////////////////
     function mergeFromUp(arr){
         let pointerBack = 0;
         for(let i=0;i<arr.length-1;i++){
@@ -234,9 +234,7 @@ document.addEventListener('DOMContentLoaded',() =>{
         pointerFront--;
     }
     }
-    //[2,2,2,2]
-    //[0,4,0,4]
-    //[0,0,4,4]
+
     function shiftEveryThingToRight(){
         for(let i=0;i<gridArray.length;i++){
             mergeFromRight(i);
@@ -252,28 +250,129 @@ document.addEventListener('DOMContentLoaded',() =>{
         }
     }
 
+    function verticalArrayElements(index,arr){
+        for(let i=0;i<gridArray.length;i++){
+            arr[i] = gridArray[i][index];
+        }
+    }
+    ///////////////////////ILLEGAL MOVES////////////////////////////////
+
+    function isMergePossible(arr){
+        let pointerBack = 0;
+        let pointerFront = pointerBack + 1;
+        while(pointerFront<arr.length){
+            if(arr[pointerFront]==arr[pointerBack] && arr[pointerFront]!=0){
+                return true;
+            }else{
+                pointerBack++;
+                pointerFront++;
+            }
+        }
+        return false;
+    }
+    function isUpMoveLegal(){
+        for(let i=0;i<gridArray.length;i++){
+            let verticalArray = [];
+            verticalArrayElements(i,verticalArray);
+            if(isLeftUpShiftPossible(verticalArray) || isMergePossible(verticalArray)){
+                return true;
+            }
+        }
+        return false;
+    }
+    function isDownLegalMove(){
+        for(let i=0;i<gridArray.length;i++){
+            let verticalArray = [];
+            verticalArrayElements(i,verticalArray);
+            if(isRightDownShiftPossible(verticalArray) || isMergePossible(verticalArray)){
+                return true;
+            }
+        }
+        return false;
+    }
+    function isLeftUpShiftPossible(arr){
+        let pointer = 0;
+        while(pointer<arr.length && arr[pointer]!=0){
+            pointer++;
+        }
+        while(pointer<arr.length && arr[pointer]==0){
+            pointer++;
+        }
+        if(pointer>=arr.length){
+            return false;
+        }
+        return true;
+        
+    }    
+    function isLeftMoveLegal(){
+        for(let i=0;i<gridArray.length;i++){
+            if(isLeftUpShiftPossible(gridArray[i]) || isMergePossible(gridArray[i])){
+                return true;
+            }else{
+                continue;
+            }
+        }
+        return false;
+    }
+    function isRightDownShiftPossible(arr){
+        let pointer = 0;
+        while(pointer<arr.length && arr[pointer]==0){
+            pointer++;
+        }
+        while(pointer<arr.length && arr[pointer]!=0){
+            pointer++;
+        }
+        if(pointer>=arr.length){
+            return false;
+        }
+        return true;  
+    }
+    function isRightMoveLegal(){
+        for(let i=0;i<gridArray.length;i++){
+            if(isRightDownShiftPossible(gridArray[i]) || isMergePossible(gridArray[i])){
+                return true;
+            }else{
+                continue;
+            }
+        }
+        return false;
+    }
     function moveUp(){
+        if(isUpMoveLegal()){
         shiftEveryThingToUp();
         storingIndexValueWhichDoestNotContainValues();
         addNewNumberInTheGrid();
+        }else{
+            alert("illegalMove");
+        }
     }
-
     function moveDown(){
+        if(isDownLegalMove()){
         shiftEveryThingToDown();
         storingIndexValueWhichDoestNotContainValues();
         addNewNumberInTheGrid();
+        }else{
+            alert("illegalMove");
+        }
     }
-
     function moveLeft(){
+        if(isLeftMoveLegal()){
         shiftEveryThingToLeft();
         storingIndexValueWhichDoestNotContainValues();
         addNewNumberInTheGrid();
+        }else{
+            alert("Illegal Move");
+        }
     }
 
     function moveRight(){
+        if(isRightMoveLegal()){
         shiftEveryThingToRight();
         storingIndexValueWhichDoestNotContainValues();
         addNewNumberInTheGrid();
+        }else{
+            alert("illegalMove");
+        }
     }
 
     function codeOfTheKeyWhichIsPressed(keyValue){
@@ -292,6 +391,5 @@ document.addEventListener('DOMContentLoaded',() =>{
         displayTheBoard();
     }
     document.addEventListener('keyup', codeOfTheKeyWhichIsPressed)
-
-    
 })
+
