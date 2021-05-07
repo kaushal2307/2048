@@ -1,0 +1,23 @@
+{
+  "name": "2048",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaushal2307/2048.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaushal2307/2048/issues"
+  },
+  "homepage": "https://github.com/kaushal2307/2048#readme",
+  "devDependencies": {
+    "jasmine": "^3.7.0"
+  }
+}

@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded',() =>{
     const gridArray = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
     const gridDisplay = document.querySelector('.grid');
-    const buttonDisplay =  document.querySelector('.gridButton');
     const squareValue = [];
     const indexObectOfTheGridArrayWhichDoesNotHaveValue = [];
 
